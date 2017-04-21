@@ -61,7 +61,7 @@ To run the application in fullscreen mode, after starting the server in one of t
 
 # Using
 
-Open `http://localhost:8000` in your browser
+Open `http://localhost:8000` in your browser. If you are accessing your PI remotely, you will need to replace "localhost" with the IP of your PI
 
 # Developing
 
