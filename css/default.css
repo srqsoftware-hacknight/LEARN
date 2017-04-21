@@ -1,0 +1,86 @@
+body {
+  background-color: #fff;
+}
+
+#menubox {
+  position: relative;
+  background-color: #00FFFF;
+  margin: 20px auto;
+  width: 100px;
+  height: 50px;
+  border-color: #000000;
+  border-style: solid
+}
+
+#lcircle {
+  position: relative;
+  background-color: #FF0000;
+  margin: 20px auto;
+  width: 50px;
+  height: 50px;
+  border-radius: 200px;
+  display: inline-block;
+  border-color: #000000;
+  border-style: solid
+}
+
+#ecircle {
+  position: relative;
+  background-color: #008000;
+  margin: 20px auto;
+  width: 50px;
+  height: 50px;
+  border-radius: 200px;
+  display: inline-block;
+  border-color: #000000;
+  border-style: solid
+}
+
+#acircle {
+  position: relative;
+  background-color: #00FFFF;
+  margin: 20px auto;
+  width: 50px;
+  height: 50px;
+  border-radius: 200px;
+  display: inline-block;
+  border-color: #000000;
+  border-style: solid
+}
+
+#rcircle {
+  position: relative;
+  background-color: #FFFF00;
+  margin: 20px auto;
+  width: 50px;
+  height: 50px;
+  border-radius: 200px;
+  display: inline-block;
+  border-color: #000000;
+  border-style: solid
+}
+
+#ncircle {
+  position: relative;
+  background-color: #FFFFFF;
+  margin: 20px auto;
+  width: 50px;
+  height: 50px;
+  border-radius: 200px;
+  display: inline-block;
+  border-color: #000000;
+  border-style: solid
+}
+
+#text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform:translate(-50%,-50%);
+  color: #fff;
+}
+
+p::first-letter { 
+  font-size: 200%;
+  color: #000000;
+}
