@@ -54,24 +54,48 @@ def getPinMapping():
     "N" : 5,
     }
 
+def disableAllPins():
+  log('attempting to disable all pins')
+  if hasGpioCapability():
+    for key, value in getPinMapping().iteritems():
+      writePin(value, 0, 'output')
+      log("disabled pin number: " + str(value))
+
+def hasGpioCapability():
+  if os.path.isfile(gpioPath) and os.access(gpioPath, os.X_OK):
+    return True
+  else:
+    log("gpio binary located at: " + gpioPath + " not found, not handling.")
+    return False
+
+def writePin(pin, value, mode):
+  modeCmd = gpioPath + ' mode ' + str(pin) + ' ' + mode
+  writeCmd = gpioPath + ' write ' + str(pin) + ' ' + str(value)
+
+  log("attempting to set gpio mode with command: " + modeCmd)
+  if hasGpioCapability():
+    os.system(modeCmd)
+
+  log("attempting to write to gpio with command: " + writeCmd)
+  if hasGpioCapability():
+    os.system(writeCmd)
+
 def togglePin(fields):
   pinMapping = getPinMapping()
 
+  disableAllPins()
+
   if "letter" in fields:
     if fields["letter"].value in pinMapping:
-      pin = str(pinMapping[fields["letter"].value])
+      pin = pinMapping[fields["letter"].value]
 
-      log("attempting to toggle pin: " + pin)
+      log("attempting to toggle pin: " + str(pin))
 
-      if os.path.isfile(gpioPath) and os.access(gpioPath, os.X_OK):
-        os.system(gpioPath + ' mode ' + pin + ' output')
-        os.system(gpioPath + ' write ' + pin + ' 1; sleep 2; ' + gpioPath + ' write ' + pin + ' 0')
-      else:
-        log("gpio binary located at: " + gpioPath + " not found, not toggling pin: " + pin)
+      writePin(pin, 1, 'output')
     else:
       log("requested letter: " + fields["letter"].value + " not found in pin map, not toggling any pins")
   else:
-    log("request parameter 'letter' not present, not toggling any pins")
+    log("request parameter 'letter' not present, not enabling any pins")
 
 def log(msg):
   sys.stderr.write("* " + os.path.basename(__file__) + " - " + msg + "\n")
