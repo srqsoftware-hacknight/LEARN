@@ -41,6 +41,13 @@ sudo aptitude install xautomation
 
 # Running
 
+Ensure this repo is cloned and `cd` into it:
+
+```
+git clone https://github.com/srqsoftware-hacknight/LEARN.git
+cd LEARN
+```
+
 You can run the provided script:
 
 ```
