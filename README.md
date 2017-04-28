@@ -51,7 +51,7 @@ $ cd LEARN
 You can run the provided script:
 
 ```
-$ ./run
+$ ./run.sh
 ```
 
 or invoke the CGI server directly in the project root (required):
