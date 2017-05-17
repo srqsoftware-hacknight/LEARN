@@ -1,6 +1,6 @@
 # Prerequisites
 
-* Raspberry PI (but can be run on a local machine as well)
+* Raspberry PI - but can be run on a local machine as well. This install guide was written using a new install of Raspbian Jessie (2017-04-10-raspbian-jessie.img)
 
 * Python (http://www.python.org) - original code developed under  python 2.7.10. Python should already be installed on your PI.
 
@@ -33,13 +33,7 @@ If you see "not installed", check your WiringPi installation. If the installatio
 $ cd .. ; rm -rf wiringPi
 ```
 
-* Automation utilities, specifically `xte` for enabling fullscreen browser mode
-
-```
-$ sudo aptitude install xautomation
-```
-
-# Running
+# Setup
 
 Ensure this repo is cloned and `cd` into it:
 
@@ -48,27 +42,45 @@ $ git clone https://github.com/srqsoftware-hacknight/LEARN.git
 $ cd LEARN
 ```
 
-You can run the provided script:
+# Running locally / for development
+
+You can run the provided script to launch the HTTP server:
 
 ```
-$ ./run.sh
+$ ./bin/run.sh
 ```
 
-or invoke the CGI server directly in the project root (required):
+or invoke the CGI server directly. This command must be run in the project root directory:
 
 ```
 $ python -m CGIHTTPServer
 ```
 
-To run the application in fullscreen mode, after starting the server in one of the ways above, run:
-
-```
-$ ./run-fullscreen.sh
-```
-
-# Using
-
 Open `http://localhost:8000` in your browser. If you are accessing your PI remotely, you will need to replace "localhost" with the IP of your PI
+
+# Setup for kiosk mode on PI
+
+Install chromium and utilities on the PI:
+
+```
+$ sudo apt-get install chromium-browser x11-xserver-utils unclutter
+```
+
+Update config files to support booting into "kiosk mode":
+
+```
+$ sed -i '/xscreensaver/d' $HOME/.config/lxsession/LXDE-pi/autostart
+$ cat << EOF >> $HOME/.config/lxsession/LXDE-pi/autostart
+@/home/pi/LEARN/bin/run.sh
+@xset s off
+@xset -dpms
+@xset s noblank
+@sed -i "s/\"exited_cleanly\": false/\"exited_cleanly\": true/" ~/.config/chromium/Default/Preferences
+@chromium-browser --noerrdialogs --kiosk http://127.0.0.1:8000 --incognito
+EOF
+$ sudo reboot
+
+Within a few seconds of the window manager loaded you should see the browser display the main page in full screen mode
 
 # Developing
 
@@ -78,3 +90,12 @@ The `css` directory contains CSS directives for the HTML files that live in the 
 
 Edit the `controller.py` file if you are adding new functionality such as a new letter or button that renders a new page and so on. The index.html file serves as a convenience to automatically redirect requests made to the root URL to `controller.py`.
 
+To change and re-generate the letter images:
+
+```
+./bin/generate-images.py /path/to/images/directory
+```
+
+NOTE: to use the image generation script you will need to have the Wand bindings installed:
+
+`pip install Wand`
