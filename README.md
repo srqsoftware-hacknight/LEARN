@@ -1,6 +1,10 @@
 # Prerequisites
 
-* Raspberry PI - but can be run on a local machine as well. This install guide was written using a new install of Raspbian Jessie (2017-04-10-raspbian-jessie.img)
+* Raspberry PI - but can be run on a local machine as well. This install guide was written using a new install of Raspbian Jessie (2017-04-10-raspbian-jessie.img). Make sure your system is up to date:
+
+```
+$ sudo apt-get update
+```
 
 * Python (http://www.python.org) - original code developed under  python 2.7.10. Python should already be installed on your PI.
 
@@ -79,6 +83,7 @@ $ cat << EOF >> $HOME/.config/lxsession/LXDE-pi/autostart
 @chromium-browser --noerrdialogs --kiosk http://127.0.0.1:8000 --incognito
 EOF
 $ sudo reboot
+```
 
 Within a few seconds of the window manager loaded you should see the browser display the main page in full screen mode
 
