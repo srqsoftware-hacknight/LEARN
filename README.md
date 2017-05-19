@@ -87,6 +87,23 @@ $ sudo reboot
 
 Within a few seconds of the window manager loaded you should see the browser display the main page in full screen mode
 
+Create a clickable Desktop application that will reboot the PI and reset to a good state:
+
+```
+$ cat << EOF >> $HOME/Desktop/LEARN.desktop
+[Desktop Entry]
+Name=LEARN
+Type=Application
+Comment=LEARN
+Categories=Application
+Exec=/usr/bin/sudo reboot
+Terminal=false
+StartupNotify=false
+EOF
+$ cd /usr/share/applications
+$ sudo ln -s /home/pi/Desktop/LEARN.desktop
+```
+
 # Developing
 
 The `cgi-bin` directory contains python scripts that get invoked. The `controller.py` file provides the main logic for determining which template to use and toggling GPIO pins. Given the small size of the functionality, its probably best to keep things here but feel free to refactor as needed.
