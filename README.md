@@ -104,6 +104,14 @@ $ cd /usr/share/applications
 $ sudo ln -s /home/pi/Desktop/LEARN.desktop
 ```
 
+There is a `shutdown.sh` script located in the `bin` directory that will listen on a pin for a button press and execute a shutdown command.
+
+This script can be added to `/etc/rc.local` by adding the following:
+
+```
+/home/pi/LEARN/bin/shutdown.sh &
+```
+
 # Developing
 
 The `cgi-bin` directory contains python scripts that get invoked. The `controller.py` file provides the main logic for determining which template to use and toggling GPIO pins. Given the small size of the functionality, its probably best to keep things here but feel free to refactor as needed.
